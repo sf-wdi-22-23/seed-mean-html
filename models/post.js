@@ -6,30 +6,30 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
 var PostSchema = new Schema({
-    created_at  : { type: Date }
-  , updated_at  : { type: Date }
-  , body        : { type: String, required: true, trim: true }
+    created_at: { 
+      type: Date, 
+      default: Date.now() 
+    },
+    updated_at: { type: Date },
+    body: { 
+      type: String, 
+      required: true, 
+      trim: true 
+    }
 });
 
-// BEFORE/AFTER FILTER
+// MIDDLEWARE
 PostSchema.pre('save', function(next){
-  // SET CREATED_AT AND UPDATED_AT
+  // set a created_at and update updated_at
   now = new Date();
   this.updated_at = now;
   if ( !this.created_at ) {
     this.created_at = now;
   }
   next();
-
-  // ENCRYPT PASSWORD
-  if (this.password) {
-    var md5 = crypto.createHash('md5');
-    this.password = md5.update(this.password).digest('hex');
-  }
-  next();
 });
 
-// EXPORT POST MODEL
+// export post model
 var Post = mongoose.model('Post', PostSchema);
 
-module.exports = Post
+module.exports = Post;
