@@ -23,7 +23,7 @@
 1. ```$ git clone https://github.com/ajbraus/seed-mean-html.git seed-mean-html```
 2. ```$ cd mean-seed-html```   
 3. ```$ npm install```   
-2. ```$ npm install bower```   
+2. ```$ npm install -g bower```   
 3. ```$ bower install```   
 1. ```$ mongod```   
 4. ```$ nodemon```   
