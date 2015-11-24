@@ -11,4 +11,4 @@ exports.templates = function (req, res) {
   res.render('templates/' + name);
 };
 
-exports.postRouter =  require('./post.js');
+exports.postRouter =  require('./posts.js');
