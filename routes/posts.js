@@ -1,54 +1,50 @@
-/*
- * Post Resource
- */
+var express = require('express');
+var postRouter = express.Router();
 
-var Post = require('../models/post');
+var Post = require('../models/post.js');
 
-module.exports = function(app) {
-  // INDEX
-  app.get('/api/posts', function (req, res) {
-    Post.find().sort('-created_at').exec(function(err, posts) {
-      if (err) { return res.status(404).send(err) };
-      res.send(posts); // return all nerds in JSON format
+postRouter.route('/')  // translates to '/api/posts/'
+  // send all posts
+  .get(function(request, response){
+      Post.find().sort('-created_at').exec(function(err, posts) {
+      if (err) { return response.status(404).send(err); }
+      response.send(posts); 
+    });    
+  })
+  // create new post
+  .post(function(req,res){  
+   // var post = new Post({ content: req.body.content });
+   // post.save(function (err, post) {
+    Post.create({ content: req.body.content }, function(err, post){
+      if (err) { return res.send(err); }
+      console.log(post);
+      res.status(201).send(post);
     });
   });
 
-  // CREATE
-  app.post('/api/posts', function (req, res) {
-    var post = new Post({
-        body: req.body.body
-      , room_name: req.body.roomName
-    });
-    console.log(post);
-    post.save(function (err, post) {
-      console.log('post saved')
-      if (err) { return res.send(err) };
-      res.status(201).send(post) 
-    });
-  });
-
-  // SHOW
-  app.get('/api/posts/:id', function (req, res) {
-    Post.findById(req.params.id, function(err, post) {
-      console.log('blah')
-      if (err) { return res.status(404).send(err) };
+postRouter.route('/:post_id')   // translates to '/api/posts/:post_id'
+  // send one post by id
+  .get(function(req,res){   
+    Post.findById(req.params.post_id, function(err, post) {
+      if (err) { return res.status(404).send(err); }
       res.send(post); 
     });
-  });
+  })
 
-  // UPDATE
-  app.put('/api/posts/:id', function (req, res) {
-    Post.findOneAndUpdate({ _id: req.params.id}, req.query.post, function (err, post) {
-      if (err) { return res.send(err) }
-      res.send(post)
+  // full update of one post by id
+  .put(function(req,res){ 
+    Post.findOneAndUpdate({ _id: req.params.post_id}, req.query.post, function (err, post) {
+      if (err) { return res.send(err); }
+      res.send(post);
+    });
+  })
+
+  // delete one post by id
+  .delete(function(req,res){   
+    Post.findByIdAndRemove(req.params.post_id, function (err, post) {
+      if (err) { return res.send(err); }
+      res.status(200).send('Success');
     });
   });
 
-  // DESTROY
-  app.delete('/api/posts/:id', function (req, res) { 
-    Post.findByIdAndRemove(req.params.id, function (err, post) {
-      if (err) { return res.send(err) }
-      res.send('Success')
-    });
-  });
-}
+module.exports = postRouter;
