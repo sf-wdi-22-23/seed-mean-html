@@ -44,7 +44,7 @@
  - .gitignore
  - bower.json - define bower package config
  - package.json - npm package config
- - Prockfile - necessary for heroku
+ - Procfile - necessary for heroku
  - README.md
  - server.js 
 
