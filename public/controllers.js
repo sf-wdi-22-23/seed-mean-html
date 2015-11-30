@@ -12,7 +12,7 @@ angular.module('myApp.controllers', [])
   //POSTS
   .controller('PostsIndexCtrl', ['$scope', '$location', '$http', function ($scope, $location, $http) {
     // GET POSTS
-    // make a GET request for all posts
+    // make a GET request for all posts with $http
 
     // NEW POST
     // create an empty 'post' object within the scope
@@ -20,7 +20,8 @@ angular.module('myApp.controllers', [])
 
     // CREATE A POST    
     $scope.createPost = function() {
-      // make a POST request to create the post based on scope's post object
+      // make a POST request to create the post with $http
+      // sned the scope's post object as data
 
       // reset scope's post object
       
