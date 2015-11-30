@@ -8,7 +8,6 @@
     "angular-sanitize": "latest",
     "angular-touch": "latest",
     "bootstrap": "latest",
-    "font-awesome": "latest",
-    "underscore": "latest"
+    "font-awesome": "latest"
   }
 }
