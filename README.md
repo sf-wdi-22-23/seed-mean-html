@@ -14,13 +14,12 @@
 	* angular-touch   
 1. Other front-end libraries
 	* font-awesome  
-	* underscore    
 	* bootstrap         
 	* jquery
 
 ## Getting Started
 
-1. ```$ git clone https://github.com/ajbraus/seed-mean-html.git mean-seed-html```
+1. ```$ git clone https://github.com/sf-wdi-22-23/seed-mean-html.git mean-seed-html```
 2. ```$ cd mean-seed-html```   
 3. ```$ npm install```   
 2. ```$ npm install -g bower```   
