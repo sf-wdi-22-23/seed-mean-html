@@ -15,7 +15,7 @@ angular.module('myApp', ['ui.router',
         controller: 'WinesIndexCtrl'
       });
 
-    $urlRouterProvider.otherwise("/state1");
+    $urlRouterProvider.otherwise("/");
 
     $locationProvider.html5Mode({
         enabled: true,
