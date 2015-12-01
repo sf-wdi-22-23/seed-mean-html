@@ -9,29 +9,38 @@ angular.module('myApp.controllers', [])
     // INITIALIZATION AND NAVBAR LOGIC
   }])
 
-  //POSTS
-  .controller('PostsIndexCtrl', ['$scope', '$location', '$http', function ($scope, $location, $http) {
-    // GET POSTS
-    // make a GET request for all posts with $http
+  //WINES
+  .controller('WinesIndexCtrl', ['$scope', '$location', '$http', function ($scope, $location, $http) {
+    $scope.wines = [];
+    $scope.wine = {};
 
-    // NEW POST
-    // create an empty 'post' object within the scope
+    $http.get('http://daretodiscover.herokuapp.com/wines')
+      .then(function(response) {
+        $scope.wines = response.data;
+      });
 
-
-    // CREATE A POST    
-    $scope.createPost = function() {
-      // make a POST request to create the post with $http
-      // sned the scope's post object as data
-
-      // reset scope's post object
-      
+    $scope.createWine = function() {
+      $http.post('http://daretodiscover.herokuapp.com/wines', $scope.wine)
+        .then(function(response) {
+          var newWine = response.data;
+          $scope.wine = {};
+          $scope.wines.unshift(newWine);
+        });
     };
 
+    $scope.updateWine = function(wine) {
+      $http.put('http://daretodiscover.herokuapp.com/wines/' + wine.id, wine)
+        .then(function(response) {
+          wine.editForm = false;
+        });
+    };
 
-    // DELETE A POST
-    $scope.deletePost = function(post) {
-      // make a DELETE request for this post
-
+    $scope.deleteWine = function(wine) {
+      $http.delete('http://daretodiscover.herokuapp.com/wines/' + wine.id)
+        .then(function(response) {
+          var wineIndex = $scope.wines.indexOf(wine);
+          $scope.wines.splice(wineIndex, 1);
+        });
     };
 
 

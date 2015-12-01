@@ -11,8 +11,8 @@ angular.module('myApp', ['ui.router',
     $stateProvider
       .state('posts', {
         url: "/",
-        templateUrl: 'templates/posts-index',
-        controller: 'PostsIndexCtrl'
+        templateUrl: 'templates/wines-index',
+        controller: 'WinesIndexCtrl'
       });
 
     $urlRouterProvider.otherwise("/state1");
