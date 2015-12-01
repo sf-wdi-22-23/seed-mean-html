@@ -10,39 +10,31 @@ angular.module('myApp.controllers', [])
   }])
 
   //WINES
-  .controller('WinesIndexCtrl', ['$scope', '$location', '$http', function ($scope, $location, $http) {
-    $scope.wines = [];
-    $scope.wine = {};
+  .controller('BooksIndexCtrl', ['$scope', '$location', 'Book', function ($scope, $location, Book) {
+    $scope.book = {};
+    $scope.books = [];
+    $scope.newBook = {};
 
-    $http.get('http://daretodiscover.herokuapp.com/wines')
-      .then(function(response) {
-        $scope.wines = response.data;
-      });
+    $scope.books = Book.query(); // returns all the books
 
-    $scope.createWine = function() {
-      $http.post('http://daretodiscover.herokuapp.com/wines', $scope.wine)
-        .then(function(response) {
-          var newWine = response.data;
-          $scope.wine = {};
-          $scope.wines.unshift(newWine);
-        });
+    $scope.createBook = function(){
+        var createdBook = Book.save($scope.newBook);
+        $scope.books.push(createdBook);
+        $scope.newBook = {}; // clear new book object
     };
 
-    $scope.updateWine = function(wine) {
-      $http.put('http://daretodiscover.herokuapp.com/wines/' + wine.id, wine)
-        .then(function(response) {
-          wine.editForm = false;
-        });
+    $scope.updateBook = function(book) {
+        Book.get({ id: book.id }, function() {
+            Book.update({id: book.id}, book);
+            book.editForm = false;
+        }); 
     };
 
-    $scope.deleteWine = function(wine) {
-      $http.delete('http://daretodiscover.herokuapp.com/wines/' + wine.id)
-        .then(function(response) {
-          var wineIndex = $scope.wines.indexOf(wine);
-          $scope.wines.splice(wineIndex, 1);
-        });
+    $scope.deleteBook = function(book) {
+        Book.remove({id:book.id});
+        var bookIndex = $scope.books.indexOf(book);
+        $scope.books.splice(bookIndex, 1);
     };
-
 
   }])
 
