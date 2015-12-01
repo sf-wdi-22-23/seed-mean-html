@@ -13,6 +13,11 @@ angular.module('myApp', ['ui.router',
         url: "/",
         templateUrl: 'templates/wines-index',
         controller: 'WinesIndexCtrl'
+      })
+      .state('winesDetails', {
+        url: '/:id',
+        templateUrl: 'templates/wines',
+        controller: 'WinesCtrl'
       });
 
     $urlRouterProvider.otherwise("/");

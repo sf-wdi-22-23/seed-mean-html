@@ -41,7 +41,7 @@
 
           <!-- wine content -->
           <div ng-hide="wine.editForm">
-            <h5>{{wine.name}}</h5>
+          <h5><a ng-href="/{{wine.id}}">{{wine.name}}</a></h5>
             <p><strong>Year:</strong> {{wine.year}}</p>
             <p><strong>Grapes:</strong> {{wine.grapes}}</p>
             <p><strong>Country:</strong> {{wine.country}}</p>

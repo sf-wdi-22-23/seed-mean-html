@@ -44,4 +44,13 @@ angular.module('myApp.controllers', [])
     };
 
 
+  }])
+
+  .controller('WinesCtrl', ['$scope', '$http', '$stateParams', function($scope, $http, $stateParams) {
+    $scope.wine = {};
+
+    $http.get('http://daretodiscover.herokuapp.com/wines/' + $stateParams.id)
+      .then(function(response) {
+        $scope.wine = response.data;
+      });
   }]);
