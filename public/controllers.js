@@ -13,6 +13,17 @@ angular.module('myApp.controllers', [])
   .controller('PostsIndexCtrl', ['$scope', '$location', '$http', function ($scope, $location, $http) {
     // GET POSTS
     // make a GET request for all posts with $http
+    // $scope.posts = [{content: "blah"},
+                    // {content: "a new post"}]
+
+    $http.get('/api/posts')
+      .success(function(response) {
+        console.log(response)
+        $scope.posts = response;
+      })
+      .error(function(response) {
+        console.log(response)
+      })
 
     // NEW POST
     // create an empty 'post' object within the scope
